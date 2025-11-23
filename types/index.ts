@@ -5,9 +5,11 @@ type ProgramOption =
   | "Yoga & Flexibility"
   | "HIIT Power";
 
-interface FormDataType {
+type FormDataType = {
   name: string;
   email: string;
   password: string;
   program: ProgramOption;
-}
+  startDate: string;
+  endDate: string;
+};

@@ -1,19 +1,5 @@
 "use client";
-import { useState, ChangeEvent, FormEvent } from "react";
-
-type ProgramOption =
-  | "None"
-  | "Strength Training"
-  | "Cardio Blast"
-  | "Yoga & Flexibility"
-  | "HIIT Power";
-
-interface FormDataType {
-  name: string;
-  email: string;
-  password: string;
-  program: ProgramOption;
-}
+import { useState, ChangeEvent } from "react";
 
 export default function RegistrationForm() {
   const [formData, setFormData] = useState<FormDataType>({
@@ -21,6 +7,8 @@ export default function RegistrationForm() {
     email: "",
     password: "",
     program: "None",
+    startDate: "",
+    endDate: "",
   });
 
   const handleChange = (
@@ -29,10 +17,23 @@ export default function RegistrationForm() {
     setFormData({ ...formData, [e.target.name]: e.target.value as ProgramOption });
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    console.log("Registration Data:", formData);
-    alert("Registration Successful!");
+
+    try {
+      const res = await fetch("/api/memberships", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      if (!res.ok) throw new Error("Failed to register");
+
+      alert("Member successfully registered!");
+    } catch (error) {
+      alert("Error adding member!");
+      console.log(error);
+    }
   };
 
   return (
@@ -68,6 +69,24 @@ export default function RegistrationForm() {
           placeholder="Password"
           onChange={handleChange}
           className="w-full mb-3 p-2 rounded bg-gray-700"
+        />
+
+        {/* Start Date */}
+        <label className="block mb-1 font-semibold">Start Date</label>
+        <input
+          type="date"
+          name="startDate"
+          onChange={handleChange}
+          className="w-full mb-3 p-2 rounded bg-gray-700"
+        />
+
+        {/* End Date */}
+        <label className="block mb-1 font-semibold">End Date</label>
+        <input
+          type="date"
+          name="endDate"
+          onChange={handleChange}
+          className="w-full mb-4 p-2 rounded bg-gray-700"
         />
 
         {/* Program Dropdown */}
