@@ -4,7 +4,7 @@ export async function connectToDB() {
   try {
     if (mongoose.connection.readyState >= 1) return;
 
-    await mongoose.connect(process.env.MONGO_URI!, {
+    await mongoose.connect(process.env.MONGODB_URI!, {
       dbName: "gym_portfolio",
     });
 
