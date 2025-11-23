@@ -24,7 +24,7 @@ export async function POST(req: Request) {
 
     const newMember = await membershipModel.create(body);
 
-    return new Response(JSON.stringify(newMember), { status: 201 });
+    return Response.json(newMember, { status: 201 });
   } catch (error) {
     return new Response("Error creating number", { status: 500 });
   }
