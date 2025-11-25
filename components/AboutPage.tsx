@@ -1,27 +1,31 @@
 import Image from "next/image";
+import Link from "next/link";
 
 const AboutPage = () => {
   const features = [
     {
       title: "Expert Trainers",
       image:
-        "https://plus.unsplash.com/premium_photo-1663050901483-ee8703cc8372?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Z3ltJTIwdHJhaW5lcnxlbnwwfDB8MHx8fDA%3D&auto=format&fit=crop&q=60&w=600",
+        "https://plus.unsplash.com/premium_photo-1663050901483-ee8703cc8372?auto=format&fit=crop&q=60&w=600",
       description:
         "Get trained by certified professionals who design customized fitness plans tailored to your goals.",
+      link: "/trainers",
     },
     {
       title: "Modern Equipment",
       image:
-        "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Z3ltJTIwZXF1aXBtZW50fGVufDB8MHwwfHx8MA%3D%3D&auto=format&fit=crop&q=60&w=600",
+        "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&q=60&w=600",
       description:
         "Our gym is equipped with state-of-the-art machines, free weights, and functional training areas.",
+      link: "/equipments",
     },
     {
       title: "Wellness Programs",
       image:
-        "https://images.unsplash.com/photo-1666979290090-dde24b4614bb?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8N3x8Z3ltJTIwd2VsbG5lc3N8ZW58MHwwfDB8fHww&auto=format&fit=crop&q=60&w=600",
+        "https://images.unsplash.com/photo-1666979290090-dde24b4614bb?auto=format&fit=crop&q=60&w=600",
       description:
         "Improve your overall wellbeing with yoga, pilates, mindfulness, and nutrition programs.",
+      link: "/wellness",
     },
   ];
 
@@ -33,33 +37,38 @@ const AboutPage = () => {
         <div className="text-center mb-16">
           <h2 className="text-5xl font-bold text-green-400">About Us</h2>
           <p className="mt-4 text-gray-300 max-w-2xl mx-auto text-lg">
-            At <span className="text-green-400 font-semibold">FitZone Gym</span>,
-            we&apos;re dedicated to transforming your fitness journey. From
-            cutting-edge training equipment to personalized programs, our mission
-            is to help you build strength, confidence, and a healthy lifestyle.
+            At <span className="text-green-400 font-semibold">FitZone Gym</span>
+            , we&apos;re dedicated to transforming your fitness journey. From
+            cutting-edge training equipment to personalized programs, our
+            mission is to help you build strength, confidence, and a healthy
+            lifestyle.
           </p>
         </div>
 
         {/* Feature Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-zinc-800 p-6 rounded-2xl shadow-lg hover:scale-105 transition-transform duration-200"
+        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-3">
+          {features.map((f, i) => (
+            <Link
+              href={f.link}
+              key={i}
+              className="rounded-2xl overflow-hidden border border-gray-700 bg-black/40 shadow-lg backdrop-blur-md hover:scale-105 transition"
             >
-              <div className="relative w-full h-52 mb-5 rounded-xl overflow-hidden">
+              <div className="relative h-48 w-full">
                 <Image
-                  src={feature.image}
-                  alt={feature.title}
+                  src={f.image}
+                  alt={f.title}
                   fill
                   className="object-cover"
                 />
               </div>
-              <h3 className="text-2xl font-semibold mb-2 text-green-400">
-                {feature.title}
-              </h3>
-              <p className="text-gray-300">{feature.description}</p>
-            </div>
+
+              <div className="p-5">
+                <h3 className="text-2xl font-semibold text-green-300">
+                  {f.title}
+                </h3>
+                <p className="text-gray-300 mt-2">{f.description}</p>
+              </div>
+            </Link>
           ))}
         </div>
 
