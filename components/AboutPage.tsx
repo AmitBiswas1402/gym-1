@@ -26,7 +26,7 @@ const AboutPage = () => {
   ];
 
   return (
-    <div id="about" className="py-20 bg-zinc-900 text-white w-full">
+    <div id="about" className="py-20 text-white w-full">
       {/* Container */}
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Heading */}

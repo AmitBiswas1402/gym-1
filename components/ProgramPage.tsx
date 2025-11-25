@@ -41,7 +41,7 @@ const programs = [
 
 const ProgramPage = () => {
   return (
-    <div className="w-full h-screen bg-zinc-900 text-white py-20 px-6 md:px-12 lg:px-20">
+    <div className="w-full h-screen text-white py-20 px-6 md:px-12 lg:px-20">
       <h1 className="text-5xl font-bold text-center mb-12 text-green-400">
         Our Programs
       </h1>

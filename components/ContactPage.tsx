@@ -9,26 +9,28 @@ const ContactPage = () => {
     message: "",
   });
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
-    alert("Thank you for contacting FitZone! We’ll get back to you soon.");
+    alert("Thank you for contacting FitZone! We&apos;ll get back to you soon.");
     setFormData({ name: "", email: "", message: "" });
   };
 
   return (
-    <section id="contact" className="py-20 bg-zinc-900 text-white w-screen">
+    <section id="contact" className="py-20 text-white w-screen">
       <div className="max-w-7xl mx-auto px-6 lg:px-8">
         {/* Heading */}
         <div className="text-center mb-16">
           <h2 className="text-4xl font-bold text-green-500">Contact Us</h2>
           <p className="mt-4 text-gray-300 max-w-2xl mx-auto">
-            Have questions or want to kickstart your fitness journey? 
-            Reach out — our team is ready to help you reach your goals.
+            Have questions or want to kickstart your fitness journey? Reach out
+            — our team is ready to help you reach your goals.
           </p>
         </div>
 
@@ -37,26 +39,36 @@ const ContactPage = () => {
           {/* Contact Info */}
           <div className="bg-zinc-800 p-8 rounded-2xl border border-zinc-700 shadow-md flex flex-col justify-between">
             <div>
-              <h3 className="text-2xl font-semibold text-green-400 mb-6">Get in Touch</h3>
+              <h3 className="text-2xl font-semibold text-green-400 mb-6">
+                Get in Touch
+              </h3>
               <div className="space-y-4 text-gray-300">
                 <p>
-                  📍 <span className="font-medium text-white">Address:</span> 
+                  📍 <span className="font-medium text-white">Address:</span>
                   123 FitZone Street, Kolkata, West Bengal, India
                 </p>
                 <p>
                   📞 <span className="font-medium text-white">Phone:</span>{" "}
-                  <a href="tel:+919876543210" className="text-green-400 hover:underline">
+                  <a
+                    href="tel:+919876543210"
+                    className="text-green-400 hover:underline"
+                  >
                     +91 98765 43210
                   </a>
                 </p>
                 <p>
                   ✉️ <span className="font-medium text-white">Email:</span>{" "}
-                  <a href="mailto:info@fitzonegym.com" className="text-green-400 hover:underline">
+                  <a
+                    href="mailto:info@fitzonegym.com"
+                    className="text-green-400 hover:underline"
+                  >
                     info@fitzonegym.com
                   </a>
                 </p>
                 <p>
-                  🕒 <span className="font-medium text-white">Working Hours:</span> <br />
+                  🕒{" "}
+                  <span className="font-medium text-white">Working Hours:</span>{" "}
+                  <br />
                   Mon - Sat: 5:00 AM – 10:00 PM <br />
                   Sun: 7:00 AM – 5:00 PM
                 </p>
@@ -69,7 +81,7 @@ const ContactPage = () => {
                 className="w-full h-64 rounded-xl border-2 border-zinc-700"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3686.917676651315!2d88.36389527506374!3d22.51811203501688!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a02713d292f8dd3%3A0xa0f66ab86fd68cf!2sKolkata%2C%20West%20Bengal!5e0!3m2!1sen!2sin!4v1696550000000"
                 loading="lazy"
-              ></iframe>
+              />
             </div>
           </div>
 
@@ -84,7 +96,10 @@ const ContactPage = () => {
 
             <div className="space-y-5">
               <div>
-                <label htmlFor="name" className="block text-gray-300 font-medium mb-1">
+                <label
+                  htmlFor="name"
+                  className="block text-gray-300 font-medium mb-1"
+                >
                   Name
                 </label>
                 <input
@@ -99,7 +114,10 @@ const ContactPage = () => {
               </div>
 
               <div>
-                <label htmlFor="email" className="block text-gray-300 font-medium mb-1">
+                <label
+                  htmlFor="email"
+                  className="block text-gray-300 font-medium mb-1"
+                >
                   Email
                 </label>
                 <input
@@ -114,7 +132,10 @@ const ContactPage = () => {
               </div>
 
               <div>
-                <label htmlFor="message" className="block text-gray-300 font-medium mb-1">
+                <label
+                  htmlFor="message"
+                  className="block text-gray-300 font-medium mb-1"
+                >
                   Message
                 </label>
                 <textarea
