@@ -6,15 +6,21 @@ export default function RegistrationForm() {
     name: "",
     email: "",
     password: "",
-    program: "None",
+    programs: "None",
     startDate: "",
     endDate: "",
+    plans: "None",
   });
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value as ProgramOption });
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -92,8 +98,8 @@ export default function RegistrationForm() {
         {/* Program Dropdown */}
         <label className="block mb-2 font-semibold">Choose Program</label>
         <select
-          name="program"
-          value={formData.program}
+          name="programs"
+          value={formData.programs}
           onChange={handleChange}
           className="w-full mb-4 p-2 rounded bg-gray-700"
         >
@@ -102,6 +108,23 @@ export default function RegistrationForm() {
           <option value="Cardio Blast">Cardio Blast</option>
           <option value="Yoga & Flexibility">Yoga & Flexibility</option>
           <option value="HIIT Power">HIIT Power</option>
+        </select>
+
+        <label className="block mb-2 font-semibold">Choose Plans</label>
+        <select
+          name="plans"
+          value={formData.plans}
+          onChange={handleChange}
+          className="w-full mb-4 p-2 rounded bg-gray-700"
+        >
+          <option value="None" disabled>
+            Select a Plan
+          </option>
+          <option value="One Day Pass">One Day Pass (₹299)</option>
+          <option value="Monthly Membership">
+            Monthly Membership (₹2,499)
+          </option>
+          <option value="Annual Membership">Annual Membership (₹19,999)</option>
         </select>
 
         <button

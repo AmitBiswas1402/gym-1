@@ -63,7 +63,7 @@ const MembershipPage = () => {
             {/* Price */}
             <div className="text-center mb-6">
               <span className="text-5xl font-extrabold">{plan.price}</span>
-              <p className="text-sm text-gray-400 mt-1">+ GST applicable</p>
+              {/* <p className="text-sm text-gray-400 mt-1">+ GST applicable</p> */}
             </div>
 
             {/* Features */}

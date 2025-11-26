@@ -5,13 +5,20 @@ type ProgramOption =
   | "Yoga & Flexibility"
   | "HIIT Power";
 
+type PlanOption =
+  | "None"
+  | "One Day Pass"
+  | "Monthly Membembership"
+  | "Annual Membership"
+
 type FormDataType = {
   name: string;
   email: string;
   password: string;
-  program: ProgramOption;
+  programs: ProgramOption;
   startDate: string;
   endDate: string;
+  plans: PlanOption;
 };
 
 type Member = {
