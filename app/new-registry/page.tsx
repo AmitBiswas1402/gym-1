@@ -5,11 +5,11 @@ export default function RegistrationForm() {
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
     email: "",
-    password: "",
-    programs: "None",
+    program: "None",
     startDate: "",
     endDate: "",
     plans: "None",
+    joinAs: "Member",
   });
 
   const handleChange = (
@@ -68,15 +68,6 @@ export default function RegistrationForm() {
           className="w-full mb-3 p-2 rounded bg-gray-700"
         />
 
-        {/* Password */}
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          onChange={handleChange}
-          className="w-full mb-3 p-2 rounded bg-gray-700"
-        />
-
         {/* Start Date */}
         <label className="block mb-1 font-semibold">Start Date</label>
         <input
@@ -98,8 +89,8 @@ export default function RegistrationForm() {
         {/* Program Dropdown */}
         <label className="block mb-2 font-semibold">Choose Program</label>
         <select
-          name="programs"
-          value={formData.programs}
+          name="program"
+          value={formData.program}
           onChange={handleChange}
           className="w-full mb-4 p-2 rounded bg-gray-700"
         >
@@ -125,6 +116,17 @@ export default function RegistrationForm() {
             Monthly Membership (₹2,499)
           </option>
           <option value="Annual Membership">Annual Membership (₹19,999)</option>
+        </select>
+
+        <label className="block mb-2 font-semibold">Join As</label>
+        <select
+          name="joinAs"
+          value={formData.joinAs}
+          onChange={handleChange}
+          className="w-full mb-4 p-2 rounded bg-gray-700"
+        >
+          <option value="Member">Member</option>
+          <option value="Trainer">Trainer</option>
         </select>
 
         <button

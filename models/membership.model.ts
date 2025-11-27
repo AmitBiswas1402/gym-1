@@ -1,21 +1,19 @@
-import mongoose, { Schema, Document } from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
-export interface MembershipType extends Document {
-  name: string;
-  startDate: string;
-  endDate: string;
-  program: string;
-}
-
-const MembershipSchema = new Schema<MembershipType>(
+const MembershipSchema = new Schema(
   {
     name: { type: String, required: true },
+    email: { type: String, required: true },
+    program: { type: String, required: true },
     startDate: { type: String, required: true },
     endDate: { type: String, required: true },
-    program: { type: String, required: true },
+    plans: { type: String, required: true },
+    joinAs: { type: String, required: true },
   },
   { timestamps: true }
 );
 
-export default mongoose.models.Membership ||
-  mongoose.model<MembershipType>("Membership", MembershipSchema);
+const Membership =
+  mongoose.models.Membership || mongoose.model("Membership", MembershipSchema);
+
+export default Membership;
