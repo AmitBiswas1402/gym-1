@@ -5,7 +5,7 @@ export default function RegistrationForm() {
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
     email: "",
-    program: "None",
+    programs: "None",
     startDate: "",
     endDate: "",
     plans: "None",
@@ -89,8 +89,8 @@ export default function RegistrationForm() {
         {/* Program Dropdown */}
         <label className="block mb-2 font-semibold">Choose Program</label>
         <select
-          name="program"
-          value={formData.program}
+          name="programs"
+          value={formData.programs}
           onChange={handleChange}
           className="w-full mb-4 p-2 rounded bg-gray-700"
         >
