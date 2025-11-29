@@ -1,7 +1,13 @@
 "use client";
-import { useState, ChangeEvent } from "react";
+
+import { ChangeEvent, useEffect, useState } from "react";
+import { useSearchParams, useRouter } from "next/navigation";
 
 export default function RegistrationForm() {
+  const searchParams = useSearchParams();
+  const router = useRouter();
+  const editId = searchParams.get("id"); // ✅ detects edit mode
+
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
     email: "",
@@ -11,6 +17,21 @@ export default function RegistrationForm() {
     plans: "None",
     joinAs: "Member",
   });
+
+  // ✅ Autofill form when editing
+  useEffect(() => {
+    if (!editId) return;
+
+    const fetchSingleMember = async () => {
+      const res = await fetch("/api/memberships");
+      const data = await res.json();
+
+      const user = data.find((u: any) => u._id === editId);
+      if (user) setFormData(user);
+    };
+
+    fetchSingleMember();
+  }, [editId]);
 
   const handleChange = (
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
@@ -23,22 +44,29 @@ export default function RegistrationForm() {
     }));
   };
 
+  // ✅ POST for new | PATCH for edit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     try {
-      const res = await fetch("/api/memberships", {
-        method: "POST",
+      const method = editId ? "PATCH" : "POST";
+      const url = editId
+        ? `/api/memberships/${editId}`
+        : "/api/memberships";
+
+      const res = await fetch(url, {
+        method,
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(formData),
       });
 
-      if (!res.ok) throw new Error("Failed to register");
+      if (!res.ok) throw new Error("Action failed");
 
-      alert("Member successfully registered!");
+      alert(editId ? "✅ Member updated!" : "✅ Member registered!");
+      router.push("/admin");
     } catch (error) {
-      alert("Error adding member!");
-      console.log(error);
+      alert("❌ Error saving member!");
+      console.error(error);
     }
   };
 
@@ -48,15 +76,19 @@ export default function RegistrationForm() {
         onSubmit={handleSubmit}
         className="w-full max-w-md bg-gray-800 p-6 rounded-xl text-white shadow-lg"
       >
-        <h2 className="text-2xl font-bold mb-5 text-center">Register</h2>
+        <h2 className="text-2xl font-bold mb-5 text-center">
+          {editId ? "Update Member" : "Register Member"}
+        </h2>
 
         {/* Name */}
         <input
           type="text"
           name="name"
           placeholder="Full Name"
+          value={formData.name}
           onChange={handleChange}
           className="w-full mb-3 p-2 rounded bg-gray-700"
+          required
         />
 
         {/* Email */}
@@ -64,8 +96,11 @@ export default function RegistrationForm() {
           type="email"
           name="email"
           placeholder="Email"
+          value={formData.email}
+          disabled={!!editId}
           onChange={handleChange}
           className="w-full mb-3 p-2 rounded bg-gray-700"
+          required
         />
 
         {/* Start Date */}
@@ -73,8 +108,10 @@ export default function RegistrationForm() {
         <input
           type="date"
           name="startDate"
+          value={formData.startDate}
           onChange={handleChange}
           className="w-full mb-3 p-2 rounded bg-gray-700"
+          required
         />
 
         {/* End Date */}
@@ -82,11 +119,13 @@ export default function RegistrationForm() {
         <input
           type="date"
           name="endDate"
+          value={formData.endDate}
           onChange={handleChange}
           className="w-full mb-4 p-2 rounded bg-gray-700"
+          required
         />
 
-        {/* Program Dropdown */}
+        {/* Program */}
         <label className="block mb-2 font-semibold">Choose Program</label>
         <select
           name="programs"
@@ -101,6 +140,7 @@ export default function RegistrationForm() {
           <option value="HIIT Power">HIIT Power</option>
         </select>
 
+        {/* Plans */}
         <label className="block mb-2 font-semibold">Choose Plans</label>
         <select
           name="plans"
@@ -108,16 +148,13 @@ export default function RegistrationForm() {
           onChange={handleChange}
           className="w-full mb-4 p-2 rounded bg-gray-700"
         >
-          <option value="None" disabled>
-            Select a Plan
-          </option>
+          <option value="None">Select Plan</option>
           <option value="One Day Pass">One Day Pass (₹299)</option>
-          <option value="Monthly Membership">
-            Monthly Membership (₹2,499)
-          </option>
+          <option value="Monthly Membership">Monthly Membership (₹2,499)</option>
           <option value="Annual Membership">Annual Membership (₹19,999)</option>
         </select>
 
+        {/* Join As */}
         <label className="block mb-2 font-semibold">Join As</label>
         <select
           name="joinAs"
@@ -131,9 +168,9 @@ export default function RegistrationForm() {
 
         <button
           type="submit"
-          className="w-full bg-green-600 p-2 rounded font-semibold hover:bg-green-500 cursor-pointer"
+          className="w-full bg-green-600 p-2 rounded font-semibold hover:bg-green-500"
         >
-          Register
+          {editId ? "Update the Person" : "Register"}
         </button>
       </form>
     </div>

@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const TrainersPage = () => {
   const [trainers, setTrainers] = useState<Member[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const handleDelete = async (id: string) => {
     if (!confirm("Delete this trainer?")) return;
@@ -12,7 +14,7 @@ const TrainersPage = () => {
       await fetch(`/api/memberships/${id}`, { method: "DELETE" });
       setTrainers((prev) => prev.filter((t) => t._id !== id));
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -43,36 +45,45 @@ const TrainersPage = () => {
       <h1 className="text-4xl font-bold mb-8 text-center text-purple-400">
         Gym Trainers
       </h1>
-      
+
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-      {trainers.map((trainer) => (
-        <div
-          key={trainer._id}
-          className="bg-gray-800 p-6 rounded-xl border border-gray-700"
-        >
-          {/* ✅ TRAINER TAG */}
-          <span className="text-xs bg-purple-600 px-3 py-1 rounded-full">
-            Trainer
-          </span>
-
-          <h2 className="text-purple-400 text-xl font-semibold mt-2">
-            {trainer.name}
-          </h2>
-
-          <p>Email: {trainer.email}</p>
-          <p>Speciality: {trainer.program}</p>
-          <p>Plan: {trainer.plans}</p>
-
-          {/* ✅ DELETE BUTTON */}
-          <button
-            onClick={() => handleDelete(trainer._id)}
-            className="mt-4 w-full bg-red-600 hover:bg-red-500 py-2 rounded font-semibold"
+        {trainers.map((trainer) => (
+          <div
+            key={trainer._id}
+            className="bg-gray-800 p-6 rounded-xl border border-gray-700"
           >
-            Remove Trainer
-          </button>
-        </div>
-      ))}
-    </div>
+            {/* ✅ TRAINER TAG */}
+            <span className="text-xs bg-purple-600 px-3 py-1 rounded-full">
+              Trainer
+            </span>
+
+            <h2 className="text-purple-400 text-xl font-semibold mt-2">
+              {trainer.name}
+            </h2>
+
+            <p>Email: {trainer.email}</p>
+            <p>Speciality: {trainer.program}</p>
+            <p>Plan: {trainer.plans}</p>
+
+            {/* ✅ DELETE AND UPDATE BUTTON */}
+            <div className="flex gap-4 mt-4">
+              <button
+                onClick={() => handleDelete(trainer._id)}
+                className="flex-1 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 py-2 rounded-lg font-semibold text-white shadow-md transition flex items-center justify-center gap-2"
+              >
+                🗑️ Delete
+              </button>
+
+              <button
+                onClick={() => router.push(`/new-registry?id=${trainer._id}`)}
+                className="flex-1 bg-gradient-to-r from-purple-400 to-purple-300 hover:from-purple-300 hover:to-purple-200 py-2 rounded-lg font-semibold text-black shadow-md transition flex items-center justify-center gap-2"
+              >
+                ✏️ Edit
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
     </div>
   );
 };

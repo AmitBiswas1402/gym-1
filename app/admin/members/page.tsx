@@ -1,9 +1,11 @@
 "use client";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 
 const MembersPage = () => {
   const [members, setMembers] = useState<Member[]>([]);
   const [loading, setLoading] = useState(true);
+  const router = useRouter();
 
   const getStatus = (endDate: string) => {
     return new Date(endDate) >= new Date()
@@ -80,13 +82,22 @@ const MembersPage = () => {
               {getStatus(member.endDate)}
             </div>
 
-            {/* ✅ DELETE BUTTON */}
-            <button
-              onClick={() => handleDelete(member._id)}
-              className="mt-4 w-full bg-red-600 hover:bg-red-500 py-2 rounded font-semibold"
-            >
-              Delete Member
-            </button>
+            {/* ✅ DELETE AND UPDATE BUTTON */}
+            <div className="flex gap-4 mt-4">
+              <button
+                onClick={() => handleDelete(member._id)}
+                className="flex-1 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 py-2 rounded-lg font-semibold text-white shadow-md transition flex items-center justify-center gap-2"
+              >
+                🗑️ Delete
+              </button>
+
+              <button
+                onClick={() => router.push(`/new-registry?id=${member._id}`)}
+                className="flex-1 bg-gradient-to-r from-yellow-400 to-yellow-300 hover:from-yellow-300 hover:to-yellow-200 py-2 rounded-lg font-semibold text-black shadow-md transition flex items-center justify-center gap-2"
+              >
+                ✏️ Edit
+              </button>
+            </div>
           </div>
         ))}
       </div>
