@@ -1,63 +1,51 @@
 "use client";
-import Link from "next/link";
+
+import { useState } from "react";
+import MembersPage from "@/app/admin/members/page";
+import TrainersPage from "@/app/admin/trainers/page";
 
 const AdminPage = () => {
+  const [activeTab, setActiveTab] = useState<"members" | "trainers">("members");
+
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-10 flex items-center justify-center">
-      <div className="max-w-5xl w-full">
-        <h1 className="text-4xl font-bold text-center text-green-400 mb-12">
-          Admin Dashboard
-        </h1>
+    <div className="min-h-screen bg-gray-950 text-white p-10">
+      
+      {/* ✅ ADMIN HEADER */}
+      <h1 className="text-4xl font-bold text-center text-green-400 mb-10">
+        Admin Dashboard
+      </h1>
 
-        <div className="grid md:grid-cols-2 gap-10">
-          
-          {/* MEMBERS CARD */}
-          <Link href="/admin/members">
-            <div className="cursor-pointer bg-gray-900 border border-gray-700 rounded-xl p-8 shadow-md hover:shadow-green-500/20 hover:border-green-500 transition">
-              <h2 className="text-2xl font-semibold text-green-400 mb-3">
-                Manage Members
-              </h2>
-              <p className="text-gray-300">
-                View all registered gym members, check their plans, programs,
-                membership duration, and active/expired status.
-              </p>
-            </div>
-          </Link>
+      {/* ✅ TAB BUTTONS */}
+      <div className="flex justify-center gap-6 mb-12">
+        <button
+          onClick={() => setActiveTab("members")}
+          className={`px-6 py-3 w-100 rounded-lg font-semibold transition ${
+            activeTab === "members"
+              ? "bg-green-600 text-white"
+              : "bg-gray-800 hover:bg-gray-700"
+          }`}
+        >
+          🏋️‍♂️Members
+        </button>
 
-          {/* TRAINERS CARD */}
-          <Link href="/admin/trainers">
-            <div className="cursor-pointer bg-gray-900 border border-gray-700 rounded-xl p-8 shadow-md hover:shadow-purple-500/20 hover:border-purple-500 transition">
-              <h2 className="text-2xl font-semibold text-purple-400 mb-3">
-                Manage Trainers
-              </h2>
-              <p className="text-gray-300">
-                View all registered gym trainers, their specialization, and
-                membership plans.
-              </p>
-            </div>
-          </Link>
-
-          {/* FUTURE FEATURE PLACEHOLDER */}
-          {/* <div className="bg-gray-900 border border-gray-700 rounded-xl p-8 text-gray-500 opacity-60">
-            <h2 className="text-2xl font-semibold mb-3">
-              Analytics (Coming Soon)
-            </h2>
-            <p>
-              Membership growth, revenue, active vs expired reports.
-            </p>
-          </div>
-
-          <div className="bg-gray-900 border border-gray-700 rounded-xl p-8 text-gray-500 opacity-60">
-            <h2 className="text-2xl font-semibold mb-3">
-              Trial Bookings (Coming Soon)
-            </h2>
-            <p>
-              Manage free trial bookings and inquiries.
-            </p>
-          </div> */}
-
-        </div>
+        <button
+          onClick={() => setActiveTab("trainers")}
+          className={`px-6 py-3 w-100 rounded-lg font-semibold transition ${
+            activeTab === "trainers"
+              ? "bg-purple-600 text-white"
+              : "bg-gray-800 hover:bg-gray-700"
+          }`}
+        >
+          💪🏼Trainers
+        </button>
       </div>
+
+      {/* ✅ CONDITIONAL RENDERING */}
+      <div className="max-w-7xl mx-auto">
+        {activeTab === "members" && <MembersPage />}
+        {activeTab === "trainers" && <TrainersPage />}
+      </div>
+
     </div>
   );
 };

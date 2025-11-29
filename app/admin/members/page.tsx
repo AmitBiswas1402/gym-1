@@ -47,7 +47,7 @@ const AdminMembersPage = () => {
   return (
     <div className="min-h-screen text-white p-10">
       <h1 className="text-4xl font-bold mb-8 text-center text-green-400">
-        Gym Members
+        🏋️‍♂️ Gym Members
       </h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

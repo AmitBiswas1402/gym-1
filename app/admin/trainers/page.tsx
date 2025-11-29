@@ -39,7 +39,7 @@ const AdminTrainersPage = () => {
   return (
     <div className="min-h-screen text-white p-10">
       <h1 className="text-4xl font-bold mb-8 text-center text-purple-400">
-        Gym Trainers
+        💪🏼 Gym Trainers
       </h1>
 
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">

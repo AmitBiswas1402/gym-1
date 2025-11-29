@@ -11,14 +11,16 @@ type PlanOption =
   | "Monthly Membembership"
   | "Annual Membership"
 
+type JoinAsOption = "Member" | "Trainer";
+
 type FormDataType = {
   name: string;
   email: string;
-  password: string;
   programs: ProgramOption;
   startDate: string;
   endDate: string;
   plans: PlanOption;
+  joinAs: JoinAsOption;
 };
 
 type Member = {
@@ -26,9 +28,10 @@ type Member = {
   name: string;
   email: string;
   program: string;
+  plans: string;
+  joinAs: string;
   startDate: string;
   endDate: string;
-  createdAt?: string;
 };
 
 type Trainer = {
@@ -52,7 +55,7 @@ type Equipment = {
   image: string;
 };
 
-type Program = {
+type Programs = {
   id: string;
   name: string;
   category: string;
