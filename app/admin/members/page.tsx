@@ -56,20 +56,20 @@ const MembersPage = () => {
         {members.map((member) => (
           <div
             key={member._id}
-            className="bg-gray-800 p-6 rounded-xl border border-gray-700"
+            className="bg-black/40 backdrop-blur-md p-6 rounded-xl border border-gray-700 shadow-lg hover:shadow-green-500/30 transition"
           >
             {/* ✅ ROLE TAG */}
             <span className="text-xs bg-blue-600 px-3 py-1 rounded-full">
               {member.joinAs}
             </span>
 
-            <h2 className="text-green-400 text-xl font-semibold mt-2">
+            <h2 className="text-green-400 text-xl font-semibold mt-3">
               {member.name}
             </h2>
 
-            <p>Email: {member.email}</p>
-            <p>Program: {member.program}</p>
-            <p>Plan: {member.plans}</p>
+            <p className="text-gray-300">Email: {member.email}</p>
+            <p className="text-gray-300">Program: {member.program}</p>
+            <p className="text-gray-300">Plan: {member.plans}</p>
 
             {/* ✅ STATUS BADGE */}
             <div
@@ -82,8 +82,8 @@ const MembersPage = () => {
               {getStatus(member.endDate)}
             </div>
 
-            {/* ✅ DELETE AND UPDATE BUTTON */}
-            <div className="flex gap-4 mt-4">
+            {/* ✅ DELETE + EDIT */}
+            <div className="flex gap-4 mt-5">
               <button
                 onClick={() => handleDelete(member._id)}
                 className="flex-1 bg-gradient-to-r from-red-600 to-red-500 hover:from-red-500 hover:to-red-400 py-2 rounded-lg font-semibold text-white shadow-md transition flex items-center justify-center gap-2"

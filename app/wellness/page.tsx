@@ -4,9 +4,9 @@ import { useState } from "react";
 import Image from "next/image";
 
 const WellnessProgram = () => {
-  const [selected, setSelected] = useState<Program | null>(null);
+  const [selected, setSelected] = useState<Programs | null>(null);
 
-  const programs: Program[] = [
+  const programs: Programs[] = [
     {
       id: "wp1",
       name: "Strength & Conditioning",

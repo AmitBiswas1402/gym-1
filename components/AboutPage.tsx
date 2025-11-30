@@ -51,7 +51,7 @@ const AboutPage = () => {
             <Link
               href={f.link}
               key={i}
-              className="rounded-2xl overflow-hidden border border-gray-700 bg-black/40 shadow-lg backdrop-blur-md hover:scale-105 transition"
+              className="rounded-2xl overflow-hidden border border-gray-700 bg-black/40 shadow-lg backdrop-blur-md hover:scale-105 hover:shadow-green-400/30 hover:border-green-500 transition"
             >
               <div className="relative h-48 w-full">
                 <Image

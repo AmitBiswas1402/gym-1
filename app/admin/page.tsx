@@ -5,6 +5,7 @@ import MembersPage from "@/app/admin/members/page";
 import TrainersPage from "@/app/admin/trainers/page";
 import { useRouter } from "next/navigation";
 import { MoveLeft } from "lucide-react";
+import Image from "next/image";
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState<"members" | "trainers">("members");
@@ -13,17 +14,25 @@ const AdminPage = () => {
 
   useEffect(() => {
     setLoading(true);
-
-    const timer = setTimeout(() => {
-      setLoading(false);
-    }, 500);
-
+    const timer = setTimeout(() => setLoading(false), 500);
     return () => clearTimeout(timer);
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-10 relative">
-      {/* ✅ BACK TO HOME BUTTON */}
+    <div className="relative min-h-screen text-white p-10 hide-scrollbar overflow-y-auto">
+      {/* ✅ FULL BACKGROUND IMAGE */}
+      <div className="fixed inset-0 -z-20">
+        <Image
+          src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1470"
+          alt="Gym background"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/60"></div>
+      </div>
+
+      {/* ✅ BACK BUTTON */}
       <button
         onClick={() => router.push("/")}
         className="absolute top-6 left-6 flex items-center gap-3 text-xl font-semibold text-gray-200 hover:text-green-400 transition group"
@@ -34,7 +43,7 @@ const AdminPage = () => {
         <span className="hidden sm:block">Back to Home</span>
       </button>
 
-      {/* ✅ ADMIN HEADER */}
+      {/* ✅ HEADER */}
       <h1 className="text-4xl font-bold text-center text-green-400 mb-10">
         Admin Dashboard
       </h1>
@@ -43,7 +52,7 @@ const AdminPage = () => {
       <div className="flex justify-center gap-6 mb-12">
         <button
           onClick={() => setActiveTab("members")}
-          className={`px-6 py-3 w-100 rounded-lg font-semibold transition ${
+          className={`px-8 py-4 rounded-xl font-semibold text-lg transition ${
             activeTab === "members"
               ? "bg-green-600 text-white"
               : "bg-gray-800 hover:bg-gray-700"
@@ -54,7 +63,7 @@ const AdminPage = () => {
 
         <button
           onClick={() => setActiveTab("trainers")}
-          className={`px-6 py-3 w-100 rounded-lg font-semibold transition ${
+          className={`px-8 py-4 rounded-xl font-semibold text-lg transition ${
             activeTab === "trainers"
               ? "bg-purple-600 text-white"
               : "bg-gray-800 hover:bg-gray-700"
