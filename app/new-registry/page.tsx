@@ -2,11 +2,12 @@
 
 import { ChangeEvent, useEffect, useState } from "react";
 import { useSearchParams, useRouter } from "next/navigation";
+import Image from "next/image";
 
 export default function RegistrationForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const editId = searchParams.get("id"); 
+  const editId = searchParams.get("id");
 
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
@@ -18,6 +19,7 @@ export default function RegistrationForm() {
     joinAs: "Member",
   });
 
+  // ✅ AUTO-FILL IN EDIT MODE
   useEffect(() => {
     if (!editId) return;
 
@@ -36,11 +38,7 @@ export default function RegistrationForm() {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
+    setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -60,25 +58,39 @@ export default function RegistrationForm() {
 
       if (!res.ok) throw new Error("Action failed");
 
-      alert(editId ? "✅ Member updated!" : "✅ Member registered!");
+      alert(editId ? "✅ Member Updated!" : "✅ Member Registered!");
       router.push("/admin");
     } catch (error) {
-      alert("❌ Error saving member!");
+      alert("❌ Error Saving Member!");
       console.error(error);
     }
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <div className="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+
+      {/* ✅ FULL BACKGROUND IMAGE */}
+      <div className="fixed inset-0 -z-10">
+        <Image
+          src="https://images.unsplash.com/photo-1517836357463-d25dfeac3438?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=1470"
+          alt="Gym background"
+          fill
+          priority
+          className="object-cover object-center"
+        />
+        <div className="absolute inset-0 bg-black/60"></div>
+      </div>
+
+      {/* ✅ GLASS FORM CARD */}
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-gray-800 p-6 rounded-xl text-white shadow-lg"
+        className="w-full max-w-md p-6 bg-black/40 border border-gray-700 rounded-2xl shadow-lg hover:scale-105 hover:shadow-green-400/30 hover:border-green-500 transition backdrop-blur-md"
       >
         <h2 className="text-2xl font-bold mb-5 text-center">
           {editId ? "Update Member" : "Register Member"}
         </h2>
 
-        {/* Name */}
+        {/* ✅ NAME */}
         <input
           type="text"
           name="name"
@@ -89,7 +101,7 @@ export default function RegistrationForm() {
           required
         />
 
-        {/* Email */}
+        {/* ✅ EMAIL */}
         <input
           type="email"
           name="email"
@@ -100,7 +112,7 @@ export default function RegistrationForm() {
           required
         />
 
-        {/* Start Date */}
+        {/* ✅ START DATE */}
         <label className="block mb-1 font-semibold">Start Date</label>
         <input
           type="date"
@@ -111,7 +123,7 @@ export default function RegistrationForm() {
           required
         />
 
-        {/* End Date */}
+        {/* ✅ END DATE */}
         <label className="block mb-1 font-semibold">End Date</label>
         <input
           type="date"
@@ -122,7 +134,7 @@ export default function RegistrationForm() {
           required
         />
 
-        {/* Program */}
+        {/* ✅ PROGRAM */}
         <label className="block mb-2 font-semibold">Choose Program</label>
         <select
           name="programs"
@@ -137,7 +149,7 @@ export default function RegistrationForm() {
           <option value="HIIT Power">HIIT Power</option>
         </select>
 
-        {/* Plans */}
+        {/* ✅ PLAN */}
         <label className="block mb-2 font-semibold">Choose Plans</label>
         <select
           name="plans"
@@ -151,7 +163,7 @@ export default function RegistrationForm() {
           <option value="Annual Membership">Annual Membership (₹19,999)</option>
         </select>
 
-        {/* Join As */}
+        {/* ✅ JOIN AS */}
         <label className="block mb-2 font-semibold">Join As</label>
         <select
           name="joinAs"
@@ -163,9 +175,10 @@ export default function RegistrationForm() {
           <option value="Trainer">Trainer</option>
         </select>
 
+        {/* ✅ SUBMIT */}
         <button
           type="submit"
-          className="w-full bg-green-600 p-2 rounded font-semibold hover:bg-green-500"
+          className="w-full bg-green-600 p-2 rounded font-semibold hover:bg-green-500 transition"
         >
           {editId ? "Update the Person" : "Register"}
         </button>
