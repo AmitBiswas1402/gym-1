@@ -3,10 +3,13 @@
 import { useState, useEffect } from "react";
 import MembersPage from "@/app/admin/members/page";
 import TrainersPage from "@/app/admin/trainers/page";
+import { useRouter } from "next/navigation";
+import { MoveLeft } from "lucide-react";
 
 const AdminPage = () => {
   const [activeTab, setActiveTab] = useState<"members" | "trainers">("members");
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   useEffect(() => {
     setLoading(true);
@@ -19,7 +22,18 @@ const AdminPage = () => {
   }, [activeTab]);
 
   return (
-    <div className="min-h-screen bg-gray-950 text-white p-10">
+    <div className="min-h-screen bg-gray-950 text-white p-10 relative">
+      {/* ✅ BACK TO HOME BUTTON */}
+      <button
+        onClick={() => router.push("/")}
+        className="absolute top-6 left-6 flex items-center gap-3 text-xl font-semibold text-gray-200 hover:text-green-400 transition group"
+      >
+        <span className="flex items-center justify-center w-12 h-12 rounded-full bg-gray-800 group-hover:bg-green-500 text-white text-2xl transition">
+          <MoveLeft />
+        </span>
+        <span className="hidden sm:block">Back to Home</span>
+      </button>
+
       {/* ✅ ADMIN HEADER */}
       <h1 className="text-4xl font-bold text-center text-green-400 mb-10">
         Admin Dashboard

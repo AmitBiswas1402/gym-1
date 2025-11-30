@@ -6,7 +6,7 @@ import { useSearchParams, useRouter } from "next/navigation";
 export default function RegistrationForm() {
   const searchParams = useSearchParams();
   const router = useRouter();
-  const editId = searchParams.get("id"); // ✅ detects edit mode
+  const editId = searchParams.get("id"); 
 
   const [formData, setFormData] = useState<FormDataType>({
     name: "",
@@ -18,7 +18,6 @@ export default function RegistrationForm() {
     joinAs: "Member",
   });
 
-  // ✅ Autofill form when editing
   useEffect(() => {
     if (!editId) return;
 
@@ -44,7 +43,6 @@ export default function RegistrationForm() {
     }));
   };
 
-  // ✅ POST for new | PATCH for edit
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -97,7 +95,6 @@ export default function RegistrationForm() {
           name="email"
           placeholder="Email"
           value={formData.email}
-          disabled={!!editId}
           onChange={handleChange}
           className="w-full mb-3 p-2 rounded bg-gray-700"
           required
