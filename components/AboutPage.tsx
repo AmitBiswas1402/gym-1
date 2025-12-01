@@ -74,12 +74,12 @@ const AboutPage = () => {
 
         {/* CTA Button */}
         <div className="text-center mt-16">
-          <a
-            href="#membership"
+          <Link
+            href="/new-registry"
             className="px-8 py-3 bg-green-500 text-black rounded-full font-semibold hover:bg-green-600 transition"
           >
             Join Us Today
-          </a>
+          </Link>
         </div>
       </div>
     </div>

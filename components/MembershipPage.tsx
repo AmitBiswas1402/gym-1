@@ -1,3 +1,5 @@
+import Link from "next/link";
+
 const memberships = [
   {
     title: "One Day Pass",
@@ -78,15 +80,17 @@ const MembershipPage = () => {
 
             {/* Button */}
             <div className="text-center">
-              <button
-                className={`w-full py-3 font-bold rounded-lg transition ${
-                  plan.highlighted
-                    ? "bg-black text-green-400 hover:bg-zinc-900"
-                    : "bg-green-500 text-black hover:bg-green-600"
-                }`}
-              >
-                Join Now
-              </button>
+              <Link href="/new-registry">
+                <button
+                  className={`w-full py-3 font-bold rounded-lg transition ${
+                    plan.highlighted
+                      ? "bg-black text-green-400 hover:bg-zinc-900"
+                      : "bg-green-500 text-black hover:bg-green-600"
+                  }`}
+                >
+                  Join Now
+                </button>
+              </Link>
             </div>
           </div>
         ))}
